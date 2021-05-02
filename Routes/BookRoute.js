@@ -6,7 +6,7 @@ router.get('/', bookController.getCollection)
 
 router.post('/', bookController.addBook)
 
-router.put('/:bookID', bookController.editBook)
+router.patch('/:bookID', bookController.editBook)
 
 router.delete('/:bookID', bookController.deleteBook)
 
