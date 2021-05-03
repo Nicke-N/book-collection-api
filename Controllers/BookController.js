@@ -55,7 +55,6 @@ module.exports = {
                 req.body,
                 (err, book) => {
                     if (err) return res.status(500).send(err)
-                   
                     return res.send(book)
             })
 
@@ -81,7 +80,8 @@ module.exports = {
             next(error)
         }
 
-    }
+    },
+
 
 }
 

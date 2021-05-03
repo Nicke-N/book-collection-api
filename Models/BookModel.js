@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-mongoose.set('useFindAndModify', false);
+
 const bookSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -8,6 +8,23 @@ const bookSchema = new mongoose.Schema({
     author: {
         type: String,
         required: true
+    },
+    publisher: {
+        type: String,
+        required: true
+    },
+    series: {
+        type: String,
+        default: 'none'
+    },
+    collectorRating: {
+        type: Number
+    },
+    visitorRating: {
+        type: Number
+    },
+    ratedBy: {
+        type: Array
     },
     image: {
         type: String,
