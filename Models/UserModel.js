@@ -44,7 +44,7 @@ module.exports = {
     async registerUser (userInfo) {
     
         try {
-            
+
             await bcrypt.hash(userInfo.password, 10, async (error, hashedPassword) => {
           
                 try {

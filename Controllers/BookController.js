@@ -39,10 +39,15 @@ module.exports = {
 
     async editBook (req, res, next) {
         const id = req.params.bookID
-
+        var update
+        if (req.user === 'guest') {
+           update = guestRating(id, req.personalRating)
+        } else {
+            update = req.body
+        }
         try {
             
-            await books.editBook(id, req.body)
+            await books.editBook(id, update)
             res.status(200).send('Book was updated!')
 
         } catch (error) {
@@ -68,3 +73,11 @@ module.exports = {
 }
 
 
+const guestRating = async (bookID, rating) => {
+
+    let book = await books.getBook(bookID)
+    book.guests ++
+    book.guestsRating += rating
+
+    return book
+}
