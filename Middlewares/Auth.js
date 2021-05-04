@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 
 module.exports = {
 
-    admin: (req, res, next) => {
+    admin (req, res, next) {
 
         if (!req.headers.token) return res.sendStatus(401)
 
@@ -18,5 +18,23 @@ module.exports = {
             res.sendStatus(401)
         }
         
-    }
+    },
+    guest (req, res, next) {
+
+        if (!req.headers.token) { 
+            req.user = 'guest'
+            next()
+        } else {
+            try {
+                const payload = jwt.verify(token, process.env.SECRET)
+                req.user = payload
+                next() 
+            } catch (error) {
+                console.log(error)
+            res.sendStatus(401)
+            }
+           
+        }
+
+    } 
 }
