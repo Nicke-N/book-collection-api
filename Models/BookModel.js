@@ -25,11 +25,11 @@ const bookSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    visitorsRating: {
+    guestsRating: {
         type: Number,
         default: 0
     },
-    ratedBy: {
+    guests: {
         type: Number,
         default: 0
     },
@@ -73,7 +73,7 @@ module.exports = {
             if (!bookExists) {
                 const book = new books(bookInfo).save(err => {
                     if (err) return err
-                    return `Book was added`
+                    return 'Book was added!'
                 })
             } else {
                 return 'Book exists!'

@@ -1,10 +1,9 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const mongoose = require('mongoose')
 bodyParser = require('body-parser')
+
 const db = require('./Database/Db')
-require('dotenv').config()
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
