@@ -1,6 +1,6 @@
 var chai = require('chai'),
 chaiHttp = require('chai-http')
-const { request, expect } = chai
+const { expect } = chai
 const app = require('../app')
 const db = require('../Database/db')
 chai.use(chaiHttp)
@@ -21,7 +21,7 @@ describe('This test will confirm the users model is working as expected', async 
             description: 'nickenickenicke'
         }
 
-        // await userModel.registerUser(user)
+
         this.currentTest.token = await userModel.loginUser(user.username, user.password)
 
     })
@@ -136,6 +136,7 @@ describe('This test will confirm the users model is working as expected', async 
         .get(`/user/`)
         .set('Content-Type', 'application/json')
         .end((err, res) => {
+  
             expect(res).to.have.status(200)
             expect(res.body.username).to.equal('nicke123')
             done()

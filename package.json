@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env ENVIROMENT=TEST && mocha --recursive --exit --timeout 5000",
-    "start": "cross-env ENVIROMENT=dev && nodemon start.js"
+    "test": "mocha --recursive --exit --timeout 5000",
+    "start": "nodemon start.js"
   },
   "repository": {
     "type": "git",
@@ -35,7 +35,6 @@
     "mongoose": "^5.12.7"
   },
   "devDependencies": {
-    "mongodb-memory-server": "^6.9.6",
     "nodemon": "^2.0.7"
   }
 }

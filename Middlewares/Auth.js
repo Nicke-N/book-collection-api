@@ -26,6 +26,7 @@ module.exports = {
             next()
         } else {
             try {
+                const token = req.headers.token.replace('Bearer ', '')
                 const payload = jwt.verify(token, process.env.SECRET)
                 req.user = payload
                 next() 

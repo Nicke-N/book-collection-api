@@ -29,7 +29,7 @@ module.exports = {
 
         try {
             
-            await books.addBook(req.body)
+            const book = await books.addBook(req.body)
             res.status(200).send('Book was added!')
 
         } catch (error) {
@@ -41,7 +41,8 @@ module.exports = {
         const id = req.params.bookID
         var update
         if (req.user === 'guest') {
-           update = guestRating(id, req.personalRating)
+            if (!req.body.personalRating) return 'No rating!'
+           update = guestRating(id, req.body.personalRating)
         } else {
             update = req.body
         }

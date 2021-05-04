@@ -73,7 +73,7 @@ module.exports = {
             if (!bookExists) {
                 const book = new books(bookInfo).save(err => {
                     if (err) return err
-                    return `Book was added`
+                    return 'Book was added!'
                 })
             } else {
                 return 'Book exists!'
