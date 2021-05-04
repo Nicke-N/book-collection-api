@@ -87,20 +87,16 @@ module.exports = {
 
             if(user) {
 
-                await bcrypt.compare(password, user.password, async (err, result) => {
-                    if (err) console.log(err)
-                    if(result) {
+                const validPassword = await bcrypt.compare(password, user.password)
+
+                if(validPassword) {
+                    const token = jwt.sign(user.toJSON(), process.env.SECRET)
   
-                        const token = await jwt.sign(user.toJSON(), process.env.SECRET)
-                        const response = {token: token, msg: 'Logged in successfully!'}
-                        console.log('model')
-                        console.log(response)
-                        return response // {token: token, msg: 'Logged in successfully!'}
-                    } else {
-                        
-                        return 'Wrong password!'
-                    }
-                })
+                    return token
+                } else {
+                    return 'Wrong password!'
+                }
+
             } else {
                 return "Username doesn't exist!"
             }

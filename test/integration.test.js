@@ -111,8 +111,8 @@ describe('This test will confirm the users model is working as expected', async 
         .set('Content-Type', 'application/json')
         .send(loginInfo)
         .end((err, res) => {
-            console.log('login')
             
+            expect((res.body).charAt(0)).to.equal('e')
             expect(res).to.have.status(200)
             
             done()
