@@ -1,7 +1,7 @@
 var chai = require('chai'),
 chaiHttp = require('chai-http')
 const { request, expect } = chai
-const app = require("../app")
+const app = require('../app')
 const db = require('../Database/db')
 chai.use(chaiHttp)
 
@@ -12,16 +12,13 @@ describe('This test will confirm the users model is working as expected', async 
 
     beforeEach( async () => {
         await db.connect()
-       
-        
-        
     })
 
     it ('should get all books', function (done) {
        
         chai.request(app)
         .get(`/collection/`)
-        .set("Content-Type", "application/json")
+        .set('Content-Type', 'application/json')
         .end((err, res) => {
        
             const length = (res.body).length
@@ -45,7 +42,7 @@ describe('This test will confirm the users model is working as expected', async 
 
         chai.request(app)
         .post(`/user/register`)
-        .set("Content-Type", "application/json")
+        .set('Content-Type', 'application/json')
         .send(post)
         .end((err, res) => {
     
@@ -60,11 +57,7 @@ describe('This test will confirm the users model is working as expected', async 
     it ('should update an user', (done) => {
 
         const user = {
-                username: 'nicke123',
-                password: 'nicke',
-                name: 'nicke',
-                email: 'Nicke@nicke.se',
-                description: 'nickenickenicke'
+            username: 'nicke123'
         }
        
         const patch = JSON.stringify(user)
@@ -73,7 +66,7 @@ describe('This test will confirm the users model is working as expected', async 
 
             chai.request(app)
             .patch(`/user/${userID._id}`)
-            .set("Content-Type", "application/json")
+            .set('Content-Type', 'application/json')
             .send(patch)
             .end((err, res) => {
 
@@ -92,7 +85,7 @@ describe('This test will confirm the users model is working as expected', async 
 
         chai.request(app)
         .get(`/user/`)
-        .set("Content-Type", "application/json")
+        .set('Content-Type', 'application/json')
         .end((err, res) => {
             expect(res).to.have.status(200)
             expect(res.body.username).to.equal('nicke123')
@@ -100,6 +93,30 @@ describe('This test will confirm the users model is working as expected', async 
             
         })
 
+    })
+
+    it ('should login an user', (done) => {
+
+        const user = {
+            username: 'nicke123',
+            password: 'nicke'
+        }
+
+
+
+        const loginInfo = JSON.stringify(user)
+
+        chai.request(app)
+        .post('/user/login')
+        .set('Content-Type', 'application/json')
+        .send(loginInfo)
+        .end((err, res) => {
+            console.log('login')
+            
+            expect(res).to.have.status(200)
+            
+            done()
+        })
     })
 
     it ('should delete an user', (done) => {
@@ -110,7 +127,7 @@ describe('This test will confirm the users model is working as expected', async 
 
             chai.request(app)
             .delete(`/user/${userID._id}`)
-            .set("Content-Type", "application/json")
+            .set('Content-Type', 'application/json')
             .end((err, res) => {
 
                 expect(res.text).to.equal('User was deleted!')

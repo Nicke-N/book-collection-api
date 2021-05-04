@@ -34,10 +34,16 @@ module.exports = {
 
     async loginUser (req, res, next) {
         const { username, password } = req.body
+
         try {
             
             const login = await users.loginUser(username, password)
+            setTimeout(() => {
+                console.log('controller')
+            console.log(login)
             res.json(login)
+            }, 2000);
+            
 
         } catch (error) {
             next(error)
