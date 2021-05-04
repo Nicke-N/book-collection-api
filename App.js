@@ -3,7 +3,7 @@ const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
 bodyParser = require('body-parser')
-
+const db = require('./Database/Db')
 require('dotenv').config()
 
 app.use(bodyParser.json())
@@ -17,12 +17,6 @@ app.use('/user', userRoute);
 app.use('/collection', collectionRoute);
 
 
-mongoose.connect(process.env.DB_CONNECTION,
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    },
-    console.log('connected to DB')
-)
+db.connect()
 
 module.exports = app

@@ -62,7 +62,8 @@ module.exports = {
             next(error)
         }
 
-    }
+    },
+
 
 }
 
