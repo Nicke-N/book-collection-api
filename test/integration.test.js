@@ -14,20 +14,7 @@ describe('This test will confirm the users model is working as expected', async 
         await db.connect()
     })
 
-    it ('should get all books', function (done) {
-       
-        chai.request(app)
-        .get(`/collection/`)
-        .set('Content-Type', 'application/json')
-        .end((err, res) => {
-       
-            const length = (res.body).length
-     
-            expect(length).to.equal(1)
-            expect(res).to.have.status(200)
-            done()
-        })
-    })
+
 
     it ('should add a user to DB', (done) => {
 
