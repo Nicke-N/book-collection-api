@@ -54,7 +54,7 @@ module.exports = {
                     const user = new users(userInfo).save(err => {
         
                         if (err) return err
-                        return `User was added`
+                        return "User was added"
                     })
                     
                 } catch (err) {
@@ -86,16 +86,13 @@ module.exports = {
             const user = await findUser(username)
             
             if(user) {
-                const tokenData = {
-                    name: user.name,
-                    email: user.email,
-                    description: user.description
-                }
+
                 const validPassword = await bcrypt.compare(password, user.password)
 
                 if(validPassword) {
-                    const token = jwt.sign(tokenData.toJSON(), process.env.SECRET)
-  
+
+                    const token = jwt.sign(user.toJSON(), process.env.SECRET)
+                    console.log(token)
                     return token
                 } else {
                     return 'Wrong password!'
