@@ -84,13 +84,17 @@ module.exports = {
 
         try {
             const user = await findUser(username)
-
+            
             if(user) {
-
+                const tokenData = {
+                    name: user.name,
+                    email: user.email,
+                    description: user.description
+                }
                 const validPassword = await bcrypt.compare(password, user.password)
 
                 if(validPassword) {
-                    const token = jwt.sign(user.toJSON(), process.env.SECRET)
+                    const token = jwt.sign(tokenData.toJSON(), process.env.SECRET)
   
                     return token
                 } else {
