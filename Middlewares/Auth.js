@@ -21,7 +21,7 @@ module.exports = {
     },
     guest (req, res, next) {
 
-        if (!req.headers.token) { 
+        if (req.headers.token === 'null') { 
             req.user = 'guest'
             next()
         } else {
@@ -33,7 +33,7 @@ module.exports = {
                 next() 
             } catch (error) {
                 console.log(error)
-            res.sendStatus(401)
+                res.sendStatus(400)
             }
            
         }

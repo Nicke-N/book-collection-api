@@ -38,17 +38,22 @@ module.exports = {
     },
 
     async editBook (req, res, next) {
+
         const id = req.params.bookID
         var update
+
         if (req.user === 'guest') {
-            if (!req.body.personalRating) return 'No rating!'
-           update = guestRating(id, req.body.personalRating)
+
+           update = await guestRating(id, req.body.personalRating)
         } else {
+
             update = req.body
         }
         try {
-            
+
+            console.log('trye edit')
             await books.editBook(id, update)
+            console.log('edited')
             res.status(200).send('Book was updated!')
 
         } catch (error) {
