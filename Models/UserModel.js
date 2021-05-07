@@ -19,6 +19,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    instagram: {
+        type: String
+    },
     description: {
         type: String
     },
@@ -33,9 +36,15 @@ module.exports = {
 
         try {
             const user = await users.findOne({username: theUser})
-            // return { name: user.name, description: user.description, email: user.email }
+
+            if (req.user === 'guest') {
+                return { name: user.name, description: user.description, email: user.email }
+            } else {
+                return user
+            }
+            
     
-            return user
+            
         } catch (error) {
             return error
         }

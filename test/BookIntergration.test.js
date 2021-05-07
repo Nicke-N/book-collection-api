@@ -15,17 +15,19 @@ describe('This test will confirm the book model is working as expected', async (
 
         const user = {
             username: 'nicke',
-            password: 'nicke',
-            name: 'nicke',
-            email: 'Nick1e@nicke.se',
-            description: 'nickenickenicke'
+            password: 'nicke'
         }
         
         // await userModel.registerUser(user)
         this.currentTest.token = await userModel.loginUser(user.username, user.password)
+        await bookModel.addBook({
+            title: 'Some title',
+            author: 'Some author',
+            publisher:'Not me'
+        })
         const books = await bookModel.getCollection()
-        this.currentTest.bookID = books[0]._id
-        this.currentTest.bookTitle = books[0].title
+        this.currentTest.bookID = books[books.length-1]._id
+        this.currentTest.bookTitle = books[books.length-1].title
     })
 
     it ('should create a book', function (done) {
