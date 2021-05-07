@@ -92,7 +92,7 @@ module.exports = {
                 if(validPassword) {
 
                     const token = jwt.sign(user.toJSON(), process.env.SECRET)
-                    console.log(token)
+                   
                     return token
                 } else {
                     return 'Wrong password!'

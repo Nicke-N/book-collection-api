@@ -21,7 +21,7 @@ module.exports = {
     },
     guest (req, res, next) {
 
-        if (req.headers.token === 'null') { 
+        if (req.headers.token === 'null' || !req.headers.token) { 
             req.user = 'guest'
             next()
         } else {

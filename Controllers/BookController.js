@@ -51,9 +51,8 @@ module.exports = {
         }
         try {
 
-            console.log('trye edit')
             await books.editBook(id, update)
-            console.log('edited')
+  
             res.status(200).send('Book was updated!')
 
         } catch (error) {
