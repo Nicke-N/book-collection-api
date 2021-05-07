@@ -38,7 +38,7 @@ module.exports = {
             const user = await users.findOne({username: theUser})
 
             if (req.user === 'guest') {
-                return { name: user.name, description: user.description, email: user.email }
+                return { name: user.name, description: user.description, email: user.email, instagram: user.instagram }
             } else {
                 return user
             }
