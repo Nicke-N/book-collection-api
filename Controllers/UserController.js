@@ -5,8 +5,13 @@ module.exports = {
     async getUserDetails (req, res, next) {
 
         try {
+            var details
+            if (req.user === 'guest') {
+                details = await users.getUserDetails(req.headers.user)
+            } else {
+                details = await users.getUserDetails(req.user)
+            }
             
-            const details = await users.getUserDetails()
             res.json(details)
 
         } catch (error) {

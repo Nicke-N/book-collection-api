@@ -8,7 +8,7 @@ router.post('/login', guest, userController.loginUser)
 
 router.post('/register', userController.registerUser)
 
-router.get('/', userController.getUserDetails)
+router.get('/', guest, userController.getUserDetails)
 
 router.patch('/:userID', admin, userController.editUser)
 

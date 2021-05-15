@@ -13,25 +13,33 @@ const bookSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    genre: {
+        type: Array,
+        required: true
+    },
     series: {
         type: String,
         default: 'none'
     },
     image: {
         type: String,
-        default: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png"
+        default: "https://st4.depositphotos.com/14953852/24787/v/600/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg"
     },
     personalRating: {
         type: Number,
         default: 0
     },
     guestsRating: {
-        type: Number,
-        default: 0
+        type: Array,
+        default: []
     },
-    guests: {
+    yearRead: {
         type: Number,
-        default: 0
+        required: true
+    },
+    monthRead: {
+        type: Number,
+        required: true
     },
     createdAt: {
         type: Date,

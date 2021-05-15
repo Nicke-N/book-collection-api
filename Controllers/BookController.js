@@ -43,8 +43,10 @@ module.exports = {
         var update
 
         if (req.user === 'guest') {
-
-           update = await guestRating(id, req.body.personalRating)
+            console.log(req.body)
+            update = await guestRating(id, req.body)
+           
+           
         } else {
 
             update = req.body
@@ -78,11 +80,19 @@ module.exports = {
 }
 
 
-const guestRating = async (bookID, rating) => {
+const guestRating = async (bookID, body) => {
 
     let book = await books.getBook(bookID)
-    book.guests ++
-    book.guestsRating += rating
+    let change = false
 
+    if (book.guestsRating.length > 0) {
+        (book.guestsRating).some((element, index) => element.guestID && element.guestID === body.guestID ? (book.guestsRating[index].rating = body.rating, change = true) : null )
+    }
+    
+    
+    if(!change) {
+        book.guestsRating.push(body)
+    }
+ 
     return book
 }

@@ -20,13 +20,16 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     instagram: {
-        type: String
+        type: String,
+        default: 'None'
     },
     goodReads: {
-        type: String
+        type: String,
+        default: 'None'
     },
     description: {
-        type: String
+        type: String,
+        default: 'None'
     },
 })
 
@@ -35,18 +38,20 @@ const users = mongoose.model('user', userSchema)
 module.exports = {
 
     async getUserDetails (username) {
-        const theUser = username ? username : 'nicke123'
+
+        const defaultValue = 'nicke123'
+        const theUsername = username ? typeof username === 'object' ? username.username : username : defaultValue
 
         try {
-            const user = await users.findOne({username: theUser})
+            const user = await users.findOne({username: theUsername})
 
-            if (req.user === 'guest') {
+            if (typeof username !== 'object') {
+  
                 return { name: user.name, description: user.description, email: user.email, instagram: user.instagram, goodReads: user.goodReads }
             } else {
+     
                 return user
             }
-            
-    
             
         } catch (error) {
             return error
@@ -122,16 +127,43 @@ module.exports = {
     async editUser (userID, user) {
 
         try {
-            
-            users.findByIdAndUpdate(
-                userID,
-                user,
-                (err, result) => {
-                    if (err) return err
-                    return result
+            if (user.oldPassword && user.password) {
+                const existingUser = await findUser(user.username)
+                if (existingUser) {
+                    
+                    const validPassword = await bcrypt.compare(user.oldPassword, existingUser.password)
+    
+                    if (validPassword) {
+                        var details = {}
+    
+                        Object.entries(user).map((element) => element[0] !== 'oldPassword' ? details[element[0]] = element[1] : null)
+                        const hashedPassword =  await bcrypt.hash(user.password, 10)
+                        details.password = hashedPassword
+                        
+                        users.findByIdAndUpdate(
+                            userID,
+                            details,
+                            (err, result) => {
+                                if (err) return err
+                                return result
+                            }
+                        )
+                        
+                    }
+    
                 }
-            )
-
+            } else {
+                users.findByIdAndUpdate(
+                    userID,
+                    user,
+                    (err, result) => {
+                        if (err) return err
+                        return result
+                    }
+                )
+            }
+                    
+            
         } catch (error) {
             return error
         }

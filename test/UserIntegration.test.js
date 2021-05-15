@@ -15,10 +15,7 @@ describe('This test will confirm the users model is working as expected', async 
 
         const user = {
             username: 'nicke',
-            password: 'nicke',
-            name: 'nicke',
-            email: 'Nick1e@nicke.se',
-            description: 'nickenickenicke'
+            password: 'nicke'
         }
 
 
@@ -111,14 +108,14 @@ describe('This test will confirm the users model is working as expected', async 
         const token = this.test.token
         setTimeout( async function () {
             const userID = await userModel.getUserDetails('nicke1')
-          
+  
             chai.request(app)
             .patch(`/user/${userID._id}`)
             .set('Content-Type', 'application/json')
             .set('token', `Bearer ${token}`)
             .send(patch)
             .end((err, res) => {
-
+      
                 expect(res.text).to.equal('User was updated!')
                 expect(res).to.have.status(200)
                 done()
@@ -135,10 +132,11 @@ describe('This test will confirm the users model is working as expected', async 
         chai.request(app)
         .get(`/user/`)
         .set('Content-Type', 'application/json')
+        .set('user', 'nicke')
         .end((err, res) => {
   
             expect(res).to.have.status(200)
-            expect(res.body.username).to.equal('nicke123')
+            expect(res.body.username).to.equal('nicke')
             done()
             
         })

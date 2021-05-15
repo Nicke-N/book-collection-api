@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 module.exports = {
 
     admin (req, res, next) {
-       
+
         if (!req.headers.token) return res.sendStatus(401)
 
         const token = req.headers.token.replace('Bearer ', '')
