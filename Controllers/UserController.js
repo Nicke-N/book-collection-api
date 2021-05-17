@@ -1,5 +1,7 @@
 const users = require('../Models/UserModel')
-
+const whiteList = [
+    'nicke@nicke'
+]
 module.exports = {
 
     async getUserDetails (req, res, next) {
@@ -21,20 +23,25 @@ module.exports = {
 
     async registerUser (req, res, next) {
         const user = req.body
-        try {
+        if (whiteList.includes(user.email)) {
+            try {
      
-            const userExists = await users.userExists(user.email)
-          
-            if (userExists) {
-                res.send('User exists already!')
-               
-            } else {
-                await users.registerUser(user)
-                res.status(200).send('User was created!')
+                const userExists = await users.userExists(user.email)
+                
+                if (userExists) {
+                    res.send('User exists already!')
+                   
+                } else {
+                    await users.registerUser(user)
+                    res.status(200).send('User was created!')
+                }
+            } catch (error) {
+                next(error)
             }
-        } catch (error) {
-            next(error)
+        } else {
+            res.send('This email in not white-listed!')
         }
+       
     },
 
     async loginUser (req, res, next) {
