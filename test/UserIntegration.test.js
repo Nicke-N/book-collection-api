@@ -23,35 +23,35 @@ describe('This test will confirm the users model is working as expected', async 
 
     })
 
-    it ('should add a user to DB', function (done) {
+    // it ('should add a user to DB', function (done) {
 
-        const user = {
-                username: 'nicke1',
-                password: 'nicke',
-                name: 'nicke',
-                email: 'Nicke1@nicke.se',
-                description: 'nickenickenicke'
-        }
-        const post = JSON.stringify(user)
+    //     const user = {
+    //             username: 'nicke1',
+    //             password: 'nicke',
+    //             name: 'nicke',
+    //             email: 'Nicke1@nicke.se',
+    //             description: 'nickenickenicke'
+    //     }
+    //     const post = JSON.stringify(user)
        
-        chai.request(app)
-        .post(`/user/register`)
-        .set('Content-Type', 'application/json')
-        .send(post)
-        .end((err, res) => {
+    //     chai.request(app)
+    //     .post(`/user/register`)
+    //     .set('Content-Type', 'application/json')
+    //     .send(post)
+    //     .end((err, res) => {
     
-            expect(res.text).to.equal('User was created!')
-            expect(res).to.have.status(200)
-            done()
+    //         expect(res.text).to.equal('User was created!')
+    //         expect(res).to.have.status(200)
+    //         done()
             
-        })
+    //     })
 
-    })
+    // })
 
     it ('should login an user', function (done) {
 
         const user = {
-            username: 'nicke1',
+            username: 'nicke',
             password: 'nicke'
         }
 
@@ -98,33 +98,33 @@ describe('This test will confirm the users model is working as expected', async 
 
     })
 
-    it ('should update an user', function (done) {
+    // it ('should update an user', function (done) {
 
-        const user = {
-            username: 'nicke123'
-        }
+    //     const user = {
+    //         name: 'nicke123'
+    //     }
        
-        const patch = JSON.stringify(user)
-        const token = this.test.token
-        setTimeout( async function () {
-            const userID = await userModel.getUserDetails('nicke1')
+    //     const patch = JSON.stringify(user)
+    //     const token = this.test.token
+    //     setTimeout( async function () {
+    //         const userID = await userModel.getUserDetails('nicke1')
   
-            chai.request(app)
-            .patch(`/user/${userID._id}`)
-            .set('Content-Type', 'application/json')
-            .set('token', `Bearer ${token}`)
-            .send(patch)
-            .end((err, res) => {
+    //         chai.request(app)
+    //         .patch(`/user/${userID._id}`)
+    //         .set('Content-Type', 'application/json')
+    //         .set('token', `Bearer ${token}`)
+    //         .send(patch)
+    //         .end((err, res) => {
       
-                expect(res.text).to.equal('User was updated!')
-                expect(res).to.have.status(200)
-                done()
+    //             expect(res.text).to.equal('User was updated!')
+    //             expect(res).to.have.status(200)
+    //             done()
 
-            })
-        }, 0);
+    //         })
+    //     }, 0);
         
 
-    })
+    // })
 
     it ('should get user details', function (done) {
 
@@ -166,27 +166,27 @@ describe('This test will confirm the users model is working as expected', async 
 
     })
 
-    it ('should delete an user', function (done) {
+    // it ('should delete an user', function (done) {
 
-        const token = this.test.token
-        setTimeout(async function () {
-            const userID = await userModel.getUserDetails('nicke123')
+    //     const token = this.test.token
+    //     setTimeout(async function () {
+    //         const userID = await userModel.getUserDetails('nicke123')
 
-            chai.request(app)
-            .delete(`/user/${userID._id}`)
-            .set('Content-Type', 'application/json')
-            .set('token', `Bearer ${token}`)
-            .end((err, res) => {
+    //         chai.request(app)
+    //         .delete(`/user/${userID._id}`)
+    //         .set('Content-Type', 'application/json')
+    //         .set('token', `Bearer ${token}`)
+    //         .end((err, res) => {
 
-                expect(res.text).to.equal('User was deleted!')
-                expect(res).to.have.status(200)
-                done()
+    //             expect(res.text).to.equal('User was deleted!')
+    //             expect(res).to.have.status(200)
+    //             done()
             
-        })
-        }, 0);
+    //     })
+    //     }, 0);
         
 
-    })
+    // })
 
  
 })

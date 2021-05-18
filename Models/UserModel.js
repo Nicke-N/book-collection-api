@@ -3,6 +3,10 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const userSchema = new mongoose.Schema({
+    image: {
+        type: String,
+        default: 'https://lh3.googleusercontent.com/proxy/MmO1h4JozCQtk_2pBKQJk2Jg5h9DMy6Fhlc-GG96AEkAYlitonnAoOWASpyfdecxMGWsP_vMoTade5b6ZN0nnb6vXCUQEgbDxeGkuo6Ira_UlRu3o0vE0Iywrq0BkysMCSsdlac7ToJ-SJftQAN_z04KXB7P8ejqx'
+    },
     username: {
         type: String,
         required: true
