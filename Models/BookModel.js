@@ -77,7 +77,7 @@ module.exports = {
         try {
             
             const bookExists = await checkDB(bookInfo)
-
+            console.log(bookInfo)
             if (!bookExists) {
                 const book = new books(bookInfo).save(err => {
                     if (err) return err
@@ -134,7 +134,7 @@ module.exports = {
 const checkDB = async (book) => {
 
     try {
-        const existingBooks = await books.find({title: book.title})
+        const existingBooks = await books.find({title: book.title, author: book.author})
         var result = false
         if (existingBooks.length > 0) {
 

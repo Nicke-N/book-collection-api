@@ -29,7 +29,7 @@ module.exports = {
 
         try {
             
-            const book = await books.addBook(req.body)
+             await books.addBook(req.body)
             res.status(200).send('Book was added!')
 
         } catch (error) {
@@ -43,9 +43,7 @@ module.exports = {
         var update
 
         if (req.user === 'guest') {
-            console.log(req.body)
             update = await guestRating(id, req.body)
-           
            
         } else {
 
@@ -86,7 +84,13 @@ const guestRating = async (bookID, body) => {
     let change = false
 
     if (book.guestsRating.length > 0) {
-        (book.guestsRating).some((element, index) => element.guestID && element.guestID === body.guestID ? (book.guestsRating[index].rating = body.rating, change = true) : null )
+        (book.guestsRating).some((element, index) => {
+           
+            if (element.guestID && element.guestID === body.guestID) {
+                book.guestsRating[index].rating = body.rating
+                 change = true
+            }
+        })
     }
     
     

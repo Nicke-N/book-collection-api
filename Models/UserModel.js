@@ -43,15 +43,14 @@ module.exports = {
 
     async getUserDetails (username) {
 
-        const defaultValue = 'nicke123'
-        const theUsername = username ? typeof username === 'object' ? username.username : username : defaultValue
+        const theUsername = typeof username === 'object' ? username.username : username
 
         try {
             const user = await users.findOne({username: theUsername})
 
             if (typeof username !== 'object') {
   
-                return { name: user.name, description: user.description, email: user.email, instagram: user.instagram, goodReads: user.goodReads }
+                return { image: user.image, name: user.name, email: user.email, description: user.description, instagram: user.instagram, goodReads: user.goodReads, }
             } else {
      
                 return user
