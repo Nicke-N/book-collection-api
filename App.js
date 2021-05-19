@@ -15,7 +15,6 @@ const userRoute = require('./Routes/UserRoute')
 app.use('/user', userRoute);
 app.use('/collection', collectionRoute);
 
-
 db.connect()
 
 module.exports = app
