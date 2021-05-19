@@ -29,7 +29,7 @@ module.exports = {
 
         try {
             
-            const book = await books.addBook(req.body)
+             await books.addBook(req.body)
             res.status(200).send('Book was added!')
 
         } catch (error) {
@@ -38,17 +38,21 @@ module.exports = {
     },
 
     async editBook (req, res, next) {
+
         const id = req.params.bookID
         var update
+
         if (req.user === 'guest') {
-            if (!req.body.personalRating) return 'No rating!'
-           update = guestRating(id, req.body.personalRating)
+            update = await guestRating(id, req.body)
+           
         } else {
+
             update = req.body
         }
         try {
-            
+
             await books.editBook(id, update)
+  
             res.status(200).send('Book was updated!')
 
         } catch (error) {
@@ -74,11 +78,25 @@ module.exports = {
 }
 
 
-const guestRating = async (bookID, rating) => {
+const guestRating = async (bookID, body) => {
 
     let book = await books.getBook(bookID)
-    book.guests ++
-    book.guestsRating += rating
+    let change = false
 
+    if (book.guestsRating.length > 0) {
+        (book.guestsRating).some((element, index) => {
+           
+            if (element.guestID && element.guestID === body.guestID) {
+                book.guestsRating[index].rating = body.rating
+                 change = true
+            }
+        })
+    }
+    
+    
+    if(!change) {
+        book.guestsRating.push(body)
+    }
+ 
     return book
 }

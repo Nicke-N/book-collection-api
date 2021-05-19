@@ -13,25 +13,33 @@ const bookSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    genre: {
+        type: Array,
+        required: true
+    },
     series: {
         type: String,
         default: 'none'
     },
     image: {
         type: String,
-        default: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png"
+        default: "https://st4.depositphotos.com/14953852/24787/v/600/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg"
     },
     personalRating: {
         type: Number,
         default: 0
     },
     guestsRating: {
-        type: Number,
-        default: 0
+        type: Array,
+        default: []
     },
-    guests: {
+    yearRead: {
         type: Number,
-        default: 0
+        required: true
+    },
+    monthRead: {
+        type: Number,
+        required: true
     },
     createdAt: {
         type: Date,
@@ -69,7 +77,7 @@ module.exports = {
         try {
             
             const bookExists = await checkDB(bookInfo)
-
+            
             if (!bookExists) {
                 const book = new books(bookInfo).save(err => {
                     if (err) return err
@@ -126,7 +134,7 @@ module.exports = {
 const checkDB = async (book) => {
 
     try {
-        const existingBooks = await books.find({title: book.title})
+        const existingBooks = await books.find({title: book.title, author: book.author})
         var result = false
         if (existingBooks.length > 0) {
 
