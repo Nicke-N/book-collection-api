@@ -77,7 +77,7 @@ module.exports = {
         try {
             
             const bookExists = await checkDB(bookInfo)
-            console.log(bookInfo)
+            
             if (!bookExists) {
                 const book = new books(bookInfo).save(err => {
                     if (err) return err
